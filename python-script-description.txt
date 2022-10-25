@@ -1,0 +1,28 @@
+For the script to completley automate grading:
+	It will be fed:		
+		1) Raw submission output from the script
+		2) CSV file of the gradebook
+	
+	So it will 2 files open:
+		The script output should inform the grade for the csv file,
+		Lets figure out what the script output should look like:
+			Currently it's:
+				filename
+				(any output)
+				grade info as found in the rubric\
+				
+			* instead of name, the downloaded file in submissions is of form:
+				Submissions/lastnamefirstname_CanvasID_UFID_filename
+				The important number is the same number as the CanvasID column in the gradebook
+				So what I want to do is return:
+					filename points flag
+				from the shell script;
+				and with the python script - parse the filename for (fortunatley the id is always the first fieldwith a number)
+				the id, and then use that id to figure out row, column of where the points need to be entered
+				
+				if a file is flagged: the python script should grab the first name last name of who the file belongs to,
+				and return it into a new text file that will be distributed to the teaching team for review; this list will
+				be a much smaller fraction of work. A policy should also be in place where if students wish to appeal their
+				grade, they should demonstrate that the code they submitted functions as intended for each public test case,
+				afterwards it is then appropriate for the prof/TA to redownload their file and retest the submission with the
+				private test cases (THESE SHOULD NOT BE DISTRIBUTED)

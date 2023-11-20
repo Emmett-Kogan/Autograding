@@ -1,27 +1,14 @@
 # Autograding
 
 This repository contains various scripts used for grading CDA3101 assignments and automating
-uploading grades to canvas. Currently, it is fairly limited as the user still has to export the
-gradebook to their machine, run the autograde script, and reupload the modified gradebook csv file.
-The goal is to add to the current script so that it uses canvas's API to access the gradebook, like other
-UF associated software like Edugator (from COP3530), to automatically grade students assignments to reduce the
-workload on graders.
-Currently in the repository are shell scripts used in grading programming assignments one and two, that serve as
-examples for similair scripts that should be written for future assignments. There is also a pa2-python.sh file that
-demonstrates how a grading script should output each submission's grade, so that the python script can parse for the
-associated UFID, grade, and whether or not the submission has been flagged for review.
-Future commits to the repository will further increase the sophistication and extent of documentation.
+uploading grades to canvas. Currently, there are shell scripts for certain assignments which produce reports for each submission, and a seperate file that is used in a python script that modifies the canvas gradebook.
+
+The python script is probably fine, though I'd like to invoke qemu and the shell scripts in it to reduce the amount of manual work. Further, I'd like to make a script that is multithreaded, and invokes a simpler child script that simply grades and outputs one submission's report, this way I can both make the script run much faster (using more resources of the emulator) and I can reduce the complexity of writing a grading script for future TAs who will write them.
 
 ## Use
 
-As far as using the script, a shell script outputting:
-  {a string containing UFID} {grade} {flagged}
-This is the only condition for it to work, otherwise, the grading shell or batch script can be as complex as the
-user desires.
+The user needs to manually fetch all submissions from canvas (can download a zip), and then load those onto the emulator, to then run the shell script on, fetch the output files from the emulator, post the report on teams/TA channel, and modify the gradebook with the python script, then upload the modified gradebook to canvas to post grades (which will then be reviewed for plagiarism/sanity checked).
 
 ## TODO
 
-1. Update shell scripts to apply recent bug fixes and add comments, ideally remove current test cases
-2. Add a sample directory that demonstrates how the script is intended to be run, and, with sample submissions that do not reflect current assignments
-3. Integrated autograder.py with canvas's API to reduce user input
-4. See if the emulator side of grading can also be completley run in a script
+Like I said I'd like to make a parent shell script that deals with multithreading the grading, and a few example child shell scripts for existing assignments. I'd also like to enumerate what is good and what is bad in an assignment that is trying to use this script, e.g. recursive programs that deal with strings are bad as segfaulting the submission to check if recursive is impossible if it segfaults on a scanf call.
